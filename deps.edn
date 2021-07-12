@@ -1,14 +1,24 @@
-{:deps {com.linecorp.armeria/armeria {:mvn/version "1.9.2"}}
+{:deps {org.clojure/clojure {:mvn/version "1.10.3"}
+        com.linecorp.armeria/armeria {:mvn/version "1.9.2"}
+        orchestra/orchestra {:mvn/version "2021.01.01-1"}}
+
+ :paths ["src" "target/classes" "test"]
+
  :aliases
  {:test {:extra-paths ["test"]
          :extra-deps {io.github.cognitect-labs/test-runner
                       {:git/url "https://github.com/cognitect-labs/test-runner.git"
-                       :sha "705ad25bbf0228b1c38d0244a36001c2987d7337"}}
-         :main-opts ["-m" "cognitect.test-runner"]
+                       :sha "705ad25bbf0228b1c38d0244a36001c2987d7337"}
+                      cloverage/cloverage {:mvn/version "1.2.2"}}
          :exec-fn cognitect.test-runner.api/test}
 
-  :jar {:replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.245"}}
-        :exec-fn hf.depstar/jar
-        :exec-args {:jar "mustang-clojure.jar"}}}
+  :coverage  {:extra-paths ["." "test"]
+              :extra-deps  {cloverage/cloverage {:mvn/version "1.2.2"}}
+              :exec-fn build/coverage-target}
 
- :paths ["src",  "test"]}
+  :jar {:extra-paths ["."]
+        :replace-deps {com.github.seancorfield/depstar {:mvn/version "2.1.245"}}
+        :exec-fn build/jar-target}
+
+  :compile {:extra-paths ["."]
+            :exec-fn build/compile-target}}}

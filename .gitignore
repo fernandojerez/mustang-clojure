@@ -5,3 +5,5 @@ classes
 .clj-kondo/cache/
 .clj-kondo/.cache/
 .lsp
+target
+*.jar

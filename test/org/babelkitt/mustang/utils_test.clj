@@ -1,8 +1,9 @@
-(ns org.babelkitt.utils-test
+(ns org.babelkitt.mustang.utils-test
   (:require [clojure.test :refer [deftest is testing]]
-            [clojure.spec.test.alpha :as st]
-            [org.babelkitt.utils :as utils]))
+            [orchestra.spec.test :as st]
+            [org.babelkitt.mustang.utils :as utils]))
 
+(require 'org.babelkitt.mustang.utils-specs)
 (st/instrument)
 
 (deftest split-uri-test
@@ -29,6 +30,3 @@
     (is (= [{:value "name" :value-type :path}] (utils/parse-uri "/prueba/{name}"))))
   (testing "Extract path and query-string values"
     (is (= [{:value "name" :value-type :path} {:value "id" :name "id" :value-type :query-string}] (utils/parse-uri "/user/{name}?id={id}")))))
-
-
-(parse-uri-test)
