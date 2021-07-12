@@ -19,6 +19,7 @@
     (reduce #(into % (process-uri-value %2)) [] uri-values)))
 
 (defmacro route
+  "Create a rest route"
   [uri & callback]
   (let [path (first (u/split-uri uri))]
     `(let [callback# (fn [~'request] (let* ~(process-uri-values uri) ~@callback))]
